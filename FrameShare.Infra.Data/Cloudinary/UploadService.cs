@@ -2,6 +2,7 @@
 using CloudinaryDotNet.Actions;
 using FrameShare.Application.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 
 namespace FrameShare.Infra.Data.Cloudinary
 {
@@ -9,12 +10,16 @@ namespace FrameShare.Infra.Data.Cloudinary
     {
         private readonly CloudinaryDotNet.Cloudinary _cloudinary;
 
-        public UploadService()
+        public UploadService(IConfiguration configuration)
         {
+            var cloudName = configuration["Cloudinary:CloudName"];
+            var apiKey = configuration["Cloudinary:ApiKey"];
+            var apiSecret = configuration["Cloudinary:ApiSecret"];
+
             var account = new Account(
-                "drnmpymxz",
-                "433262721223617",
-                "eAjYncrPUX8W2d3AtMRfUg7oM_U"
+                cloudName,
+                apiKey,
+                apiSecret
             );
 
             _cloudinary = new CloudinaryDotNet.Cloudinary(account);
