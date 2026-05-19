@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FrameShare.Infra.Data.Context
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>,IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

@@ -10,6 +10,9 @@ namespace FrameShare.Application.Interfaces
 {
     public interface IFotoService
     {
+        Task<IEnumerable<Foto>> BuscarComFiltrosPessoal(int idEvento, int pagina, int tamanho, string ordem, int? missaoId, int idusuario);
+        Task<IEnumerable<Foto>> BuscarFotosPorUsuario(int idEvento, int idUsuario, int tamanhoPagina, int pagina = 0);
+        Task<int> BuscarPorUsuario(int idUsuario);
         Task Criar(int? idMissao, int idEvent, int userid, string urlDrive);
         Task<bool> Editar(FotoDTO fotoDTO, Guid idFoto);
         Task<bool> Apagar(Guid idFoto);

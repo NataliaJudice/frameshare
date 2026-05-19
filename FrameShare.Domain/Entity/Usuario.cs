@@ -12,7 +12,7 @@ namespace FrameShare.Domain.Entity
         public string NomeCompleto { get; set; } = string.Empty;
 
         // O SlugLogin é o que o convidado usará (ex: natalianovais)
-        public string SlugLogin { get; private set; } = string.Empty;
+        public string SlugLogin { get;  set; } = string.Empty;
 
         // "Admin" ou "Convidado"
         public string Role { get; set; } = "Convidado";

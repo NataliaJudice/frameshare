@@ -2,14 +2,18 @@
 
 @foreach (var foto in Model)
 {
-    <div class="photo-card">
+    <div class="photo-card polaroid">
         <div class="photo-wrapper">
-            <img src="@foto.UrlDrive" loading="lazy" alt="Momento FrameShare" />
+            <img src="@foto.UrlDrive" loading="lazy" alt="Momento do Evento" />
             <div class="photo-overlay">
-                <a href="@foto.UrlDrive" target="_blank" download="Foto_@foto.Id" class="btn-download">
-                    <i data-lucide="download" size="20"></i>
-                </a>
+                <button class="btn-download-action" onclick="downloadImagem('@foto.UrlDrive', 'FrameShare_@(foto.Id).jpg')" title="Baixar Foto">
+                    <i data-lucide="download" size="18"></i>
+                </button>
             </div>
+        </div>
+        <div class="polaroid-caption">
+            <span class="polaroid-tag">#FrameShare</span>
+            <span class="polaroid-id">#@foto.Id</span>
         </div>
     </div>
 }

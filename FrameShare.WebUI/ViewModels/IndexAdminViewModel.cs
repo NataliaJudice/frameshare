@@ -4,6 +4,7 @@ namespace FrameShare.WebUI.ViewModels
 {
     public class IndexAdminViewModel
     {
-        public IEnumerable<Missao>? Missao { get; set; }
+        public int FotosTotal { get; set; }
+        public IEnumerable<Foto>? Fotos { get; set; }
     }
 }

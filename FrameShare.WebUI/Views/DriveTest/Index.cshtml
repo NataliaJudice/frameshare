@@ -3,20 +3,23 @@
     ViewData["Title"] = "Mural de Memórias";
 }
 
-<!-- IMPORTAÇÃO DE FONTES E DEPENDÊNCIAS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
     :root {
     --primary: #ec4899;
     --secondary: #8b5cf6;
     --accent: #f472b6;
     --bg-main: #f8fafc;
-    --card-shadow: 0 10px 30px -5px rgba(236, 72, 153, 0.1), 0 8px 15px -6px rgba(0, 0, 0, 0.05);
+    --card-shadow: 0 15px 35px -5px rgba(236, 72, 153, 0.12), 0 10px 20px -6px rgba(0, 0, 0, 0.06);
     --text-dark: #0f172a;
     --text-muted: #64748b;
+    --polaroid-bg: #ffffff;
+    --polaroid-shadow: 0 1px 3px rgba(15, 23, 42, 0.15), 0 10px 25px rgba(15, 23, 42, 0.14), 0 20px 35px rgba(15, 23, 42, 0.06);
     }
 
     body {
@@ -34,29 +37,34 @@
     /* HEADER */
     .welcome-header h4 {
     font-weight: 800;
-    font-size: 2.5rem;
+    font-size: 2.3rem;
     background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #6366f1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    letter-spacing: -2px;
-    filter: drop-shadow(0 2px 10px rgba(236, 72, 153, 0.2));
+    letter-spacing: -1.5px;
+    filter: drop-shadow(0 2px 10px rgba(236, 72, 153, 0.15));
     }
 
     /* CARDS */
     .glass-card {
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
-    border-radius: 28px;
-    padding: 24px;
+    border-radius: 24px;
+    padding: 20px;
     box-shadow: var(--card-shadow);
     border: 1px solid white;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
+    }
+
+    .glass-card.mural-wrapper {
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     }
 
     .card-title {
     font-size: 1.15rem;
     font-weight: 700;
-    margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -70,72 +78,57 @@
     /* UPLOAD ZONE */
     .upload-zone {
     border: 3px dashed #f0abfc;
-    border-radius: 24px;
-    padding: 35px 20px;
+    border-radius: 20px;
+    padding: 30px 15px;
     text-align: center;
     transition: all 0.3s ease;
     background: #fff9fc;
     cursor: pointer;
     }
 
-    /* MISSÕES */
-    .mission-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    }
-
-    .mission-card {
-    background: white;
-    border-radius: 24px;
-    padding: 20px;
-    border: 1px solid rgba(139, 92, 246, 0.1);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    }
-
-    .mission-icon {
-    width: 45px;
-    height: 45px;
-    background: #f5f3ff;
-    color: var(--secondary);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-    }
-
-    .btn-mission-upload {
-    background: #fdf2f8;
-    color: var(--primary);
-    border: 2px dashed var(--accent);
-    width: 100%;
-    padding: 10px;
-    border-radius: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    }
-
-    /* GALLERY */
+    /* GALERIA POLAROID */
     .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 35px;
+    padding: 20px 10px;
+    }
+
+    .photo-card.polaroid {
+    position: relative;
+    background: var(--polaroid-bg);
+    padding: 16px 16px 32px 16px;
+    border-radius: 4px;
+    box-shadow: var(--polaroid-shadow);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15), box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    }
+
+    .photo-card.polaroid:nth-child(even) {
+    transform: rotate(3deg);
+    }
+
+    .photo-card.polaroid:nth-child(odd) {
+    transform: rotate(-3deg);
+    }
+
+    .photo-card.polaroid:hover {
+    transform: scale(1.04) rotate(0deg) translateY(-10px);
+    box-shadow: 0 30px 50px rgba(15, 23, 42, 0.18), 0 12px 20px rgba(15, 23, 42, 0.1);
+    z-index: 10;
+    border-color: rgba(15, 23, 42, 0.12);
     }
 
     .photo-wrapper {
-    border-radius: 20px;
+    border-radius: 0px;
     overflow: hidden;
     aspect-ratio: 1/1;
-    border: 4px solid white;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border: 2px solid #e2e8f0;
+    position: relative;
+    background-color: #f8fafc;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
     }
 
     .photo-wrapper img {
@@ -144,45 +137,136 @@
     object-fit: cover;
     }
 
-    /* BOTÕES */
+    /* LEGENDA DA POLAROID */
+    .polaroid-caption {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 800;
+    }
+
+    .polaroid-tag {
+    font-size: 0.9rem;
+    color: #334155;
+    }
+
+    .polaroid-id {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    }
+
+    /* BOTÃO DA GALERIA PESSOAL */
+    .btn-personal-gallery {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 6px 20px -4px rgba(236, 72, 153, 0.4);
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    }
+
+    .btn-personal-gallery:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -4px rgba(236, 72, 153, 0.5);
+    filter: brightness(1.05);
+    }
+
+    /* BOTÕES GERAIS */
     .btn-submit {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     color: white;
     border: none;
-    padding: 15px;
-    border-radius: 15px;
+    padding: 14px;
+    border-radius: 14px;
     font-weight: 700;
     width: 100%;
     }
 
     .modal-content {
-    border-radius: 28px;
+    border-radius: 24px;
     border: none;
+    }
+
+    @@media (max-width: 768px) {
+    .welcome-header h4 {
+    font-size: 1.8rem;
+    }
+
+    .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 20px 15px;
+    }
+
+    .photo-card.polaroid {
+    padding: 16px 16px 28px 16px;
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.15);
+    }
+
+    .photo-card.polaroid:nth-child(even) {
+    transform: rotate(1.5deg);
+    }
+
+    .photo-card.polaroid:nth-child(odd) {
+    transform: rotate(-1.5deg);
+    }
+
+    .photo-card.polaroid:hover {
+    transform: scale(1.01);
+    }
+
+    .polaroid-caption {
+    margin-top: 14px;
+    }
+
+    .polaroid-tag {
+    font-size: 0.95rem;
+    }
+
+    .polaroid-id {
+    display: none;
+    }
+
+    .btn-personal-gallery {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 0.95rem;
+    }
     }
 </style>
 
 <div class="container-custom">
-    <!-- HEADER -->
     <div class="topbar mb-4">
         <div class="welcome-header text-center text-md-start">
             <h4 class="mb-0">Olá, Natália!</h4>
-            <div class="text-muted fw-500">Vamos eternizar um momento hoje?</div>
+            <div class="text-muted fw-500">Vamos eternizar um momentão hoje?</div>
         </div>
     </div>
 
     <div class="row">
-        <!-- UPLOAD LIVRE -->
         <div class="col-md-8">
             <div class="glass-card">
-                <span class="card-title"><i data-lucide="sparkles"></i> Nova Memória</span>
-                <form asp-action="Index" method="post" enctype="multipart/form-data">
+                <span class="card-title mb-3"><i data-lucide="sparkles"></i> Nova Memória</span>
+                <form id="mainUploadForm" onsubmit="enviarUploadLivre(event)">
                     <div class="upload-zone" id="dropzone" onclick="document.getElementById('fileInput').click()">
-                        <div class="upload-icon-circle" style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: white;">
+                        <div class="upload-icon-circle" style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: white;">
                             <i data-lucide="plus"></i>
                         </div>
-                        <p class="fw-bold mb-0">Toque para postar foto livre</p>
+                        <p class="fw-bold mb-0" style="font-size: 0.95rem;">Toque para postar foto livre</p>
                     </div>
-                    <input type="file" name="file" id="fileInput" class="d-none" accept="image/*" />
+                    <input type="file" id="fileInput" class="d-none" accept="image/*" />
 
                     <div id="previewContainer" class="mt-3 text-center" style="display: none;">
                         <img id="imagePreview" src="#" style="max-height: 200px; border-radius: 15px;" class="mb-3 shadow-sm" />
@@ -192,13 +276,12 @@
             </div>
         </div>
 
-        <!-- STATUS -->
         <div class="col-md-4 mb-4">
             <div class="glass-card h-100">
                 <span class="card-title"><i data-lucide="bar-chart-3"></i> O Evento</span>
                 <div class="d-flex justify-content-between py-2 border-bottom">
-                    <span class="text-muted font-small">Missoes concluídas</span>
-                    <span class="fw-bold">@Model?.Fotos.Count()</span>
+                    <span class="text-muted font-small">Enviadas por você</span>
+                    <span class="fw-bold">@Model.FotosJaEnviadas</span>
                 </div>
                 <div class="d-flex justify-content-between py-2">
                     <span class="text-muted font-small">Status</span>
@@ -208,44 +291,31 @@
         </div>
     </div>
 
-    <!-- SEÇÃO DE MISSÕES -->
-    <div class="glass-card">
-        <span class="card-title"><i data-lucide="trophy"></i> Missões Fotográficas</span>
-        <div class="mission-grid">
-            @if (Model.Missao != null)
-            {
-                @foreach (var missao in Model.Missao)
-                {
-                    <div class="mission-card shadow-sm">
-                        <div>
-                            <div class="mission-icon"><i data-lucide="@missao.Icone"></i></div>
-                            <div class="mission-title fw-bold">@missao.Titulo</div>
-                            <p class="text-muted small">@missao.Descricao</p>
-                        </div>
-                        <button class="btn-mission-upload mt-3" onclick="triggerMissionUpload('@missao.Id', '@missao.Titulo')">
-                            <i data-lucide="camera" size="18"></i> Cumprir Missão
-                        </button>
-                    </div>
-                }
-            }
+    <div class="glass-card mural-wrapper">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+            <span class="card-title mb-0"><i class="me-1" data-lucide="layers"></i> Mural Recente</span>
+            <a asp-controller="Foto" asp-action="GaleriaPessoal" class="btn-personal-gallery">
+                <i data-lucide="user" size="16"></i> Ver Minha Galeria
+            </a>
         </div>
-    </div>
 
-    <!-- MURAL -->
-    <div class="glass-card">
-        <span class="card-title"><i data-lucide="layers"></i> Mural Recente</span>
         <div class="gallery-grid">
             @foreach (var foto in Model.Fotos)
             {
-                <div class="photo-wrapper">
-                    <img src="@foto.UrlDrive" loading="lazy" />
+                <div class="photo-card polaroid">
+                    <div class="photo-wrapper">
+                        <img src="@foto.UrlDrive" loading="lazy" alt="Momento do Evento" />
+                    </div>
+                    <div class="polaroid-caption">
+                        <span class="polaroid-tag">#FrameShare</span>
+                        <span class="polaroid-id">#@foto.Id</span>
+                    </div>
                 </div>
             }
         </div>
     </div>
 </div>
 
-<!-- MODAL DE CONFIRMAÇÃO -->
 <div class="modal fade" id="confirmMissionModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content shadow-lg">
@@ -255,7 +325,7 @@
                 <div class="bg-light rounded-4 p-2 mb-4">
                     <img id="modalImagePreview" src="" class="img-fluid rounded-4" style="max-height: 250px; width: 100%; object-fit: cover;">
                 </div>
-                
+
                 <div class="d-grid gap-2">
                     <button type="button" class="btn-submit" onclick="sendMissionPhoto()">Sim, enviar agora!</button>
                     <button type="button" class="btn btn-link text-muted text-decoration-none" data-bs-dismiss="modal">Cancelar</button>
@@ -265,57 +335,39 @@
     </div>
 </div>
 
-<!-- FORMS OCULTOS -->
-<form id="missionForm" asp-action="UploadPorMissao" method="post" enctype="multipart/form-data" class="d-none">
-    <input type="file" name="file" id="missionFileInput" accept="image/*">
-    <input type="hidden" name="idMissao" id="missionIdInput">
-</form>
+<input type="file" id="missionFileInput" accept="image/*" class="d-none">
 
 <script>
-    // Inicializar ícones
-   
+    let selectedId = null;
+    let missionModalInstance = null;
 
     document.addEventListener("DOMContentLoaded", function() {
     lucide.createIcons();
-    let selectedId = null;
+
     const missionFileInput = document.getElementById('missionFileInput');
     const modalElement = document.getElementById('confirmMissionModal');
-        
-    // Inicialização segura da Modal
-    const missionModal = new bootstrap.Modal(modalElement);
+    missionModalInstance = new bootstrap.Modal(modalElement);
 
-    // Função disparada pelo botão do card
+    // Abre seleção ao acionar o card de missão
     window.triggerMissionUpload = function(id, desc) {
     selectedId = id;
     document.getElementById('modalMissionText').innerText = desc;
     missionFileInput.click();
     };
 
-    // Quando o arquivo é selecionado
+    // Quando o arquivo da missão é escolhido
     missionFileInput.onchange = function() {
     if (this.files && this.files[0]) {
     const reader = new FileReader();
     reader.onload = (e) => {
     document.getElementById('modalImagePreview').src = e.target.result;
-    missionModal.show(); // Abre a modal
+    missionModalInstance.show();
     };
     reader.readAsDataURL(this.files[0]);
     }
     };
 
-    // Enviar formulário
-    window.sendMissionPhoto = function() {
-    if (!selectedId) return;
-            
-    document.getElementById('missionIdInput').value = selectedId;
-    const btn = document.querySelector('#confirmMissionModal .btn-submit');
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
-    btn.disabled = true;
-            
-    document.getElementById('missionForm').submit();
-    };
-
-    // Lógica Preview Upload Principal
+    // Escuta o input de upload livre da tela principal
     const fileInput = document.getElementById('fileInput');
     fileInput.onchange = function() {
     if (this.files && this.files[0]) {
@@ -330,5 +382,102 @@
     };
     });
 
-  
+    // 🚀 UPLOAD LIVRE INTERCEPTADO VIA AJAX COM SWEETALERT
+    async function enviarUploadLivre(event) {
+    event.preventDefault();
+    const fileInput = document.getElementById('fileInput');
+
+    if (!fileInput.files || fileInput.files.length === 0) return;
+
+    const formData = new FormData();
+    formData.append("file", fileInput.files[0]);
+
+    Swal.fire({
+    title: 'Enviando sua foto...',
+    text: 'Salvando momento no varal digital.',
+    allowOutsideClick: false,
+    didOpen: () => { Swal.showLoading(); }
+    });
+
+    try {
+    const response = await fetch('/DriveTest/Index', {
+    method: 'POST',
+    body: formData
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+    throw new Error(data.mensagem || "Ocorreu uma falha no upload.");
+    }
+
+    Swal.fire({
+    icon: 'success',
+    title: 'Enviado! ✨',
+    text: data.mensagem,
+    confirmButtonColor: '#ec4899'
+    }).then(() => {
+    location.reload();
+    });
+
+    } catch (error) {
+    Swal.fire({
+    icon: 'error',
+    title: 'Erro no Upload',
+    text: error.message,
+    confirmButtonColor: '#8b5cf6'
+    });
+    }
+    }
+
+    // 🚀 UPLOAD POR MISSÃO INTERCEPTADO VIA AJAX COM SWEETALERT
+    async function sendMissionPhoto() {
+    if (!selectedId) return;
+
+    const missionFileInput = document.getElementById('missionFileInput');
+    if (!missionFileInput.files || missionFileInput.files.length === 0) return;
+
+    missionModalInstance.hide();
+
+    const formData = new FormData();
+    formData.append("file", missionFileInput.files[0]);
+    formData.append("idMissao", selectedId);
+
+    Swal.fire({
+    title: 'Validando Missão...',
+    text: 'Enviando imagem para análise do evento.',
+    allowOutsideClick: false,
+    didOpen: () => { Swal.showLoading(); }
+    });
+
+    try {
+    const response = await fetch('/DriveTest/UploadPorMissao', {
+    method: 'POST',
+    body: formData
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+    throw new Error(data.mensagem || "Não foi possível validar o envio da missão.");
+    }
+
+    Swal.fire({
+    icon: 'success',
+    title: 'Missão Cumprida! 🏆',
+    text: data.mensagem,
+    confirmButtonColor: '#ec4899'
+    }).then(() => {
+    location.reload();
+    });
+
+    } catch (error) {
+    Swal.fire({
+    icon: 'error',
+    title: 'Falha na Missão',
+    text: error.message,
+    confirmButtonColor: '#8b5cf6'
+    });
+    }
+    }
 </script>
