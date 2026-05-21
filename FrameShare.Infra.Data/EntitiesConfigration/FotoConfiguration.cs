@@ -16,6 +16,7 @@ namespace FrameShare.Infra.Data.EntitiesConfigration
             builder.HasKey(x => x.Id);
             builder.HasOne(f => f.Missao).WithMany(m => m.Fotos).HasForeignKey(f => f.MissionId);
             builder.HasOne(f => f.Evento).WithMany(e => e.Fotos).HasForeignKey(f => f.EventId);
+            builder.HasOne(f => f.Usuario).WithMany(f => f.Fotos).HasForeignKey(f => f.UserId);
 
         }
     }

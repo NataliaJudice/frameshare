@@ -12,6 +12,7 @@ namespace FrameShare.Domain.Entity
         public int EventId { get; set; }
         public Evento Evento { get; set; }
         public int UserId { get; set; } 
+        public Usuario Usuario { get; set; }
         public int? MissionId { get; set; } 
         public Missao? Missao { get; set; }
         public string UrlDrive { get; set; }

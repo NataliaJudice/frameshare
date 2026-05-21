@@ -29,6 +29,7 @@ namespace FrameShare.Application.Services
             try
             {
                 return await _context.Foto
+                    .Include(x => x.Usuario)
                     .Where(f => f.EventId == idEvento)
                     .OrderByDescending(f => f.DataUpload)
                     .ToListAsync();
@@ -45,6 +46,7 @@ namespace FrameShare.Application.Services
             try
             {
                 return await _context.Foto
+                    .Include(x => x.Usuario)
                     .Where(x => x.UserId == idUsuario)
                     .CountAsync(); // Modificado para CountAsync() direta: muito mais rápido do que dar ToListAsync e contar na memória
             }
@@ -59,6 +61,7 @@ namespace FrameShare.Application.Services
             try
             {
                 return await _context.Foto
+                    .Include(x => x.Usuario)
                     .Where(f => f.EventId == idEvento && f.UserId == idUsuario)
                     .OrderByDescending(f => f.DataUpload)
                     .Skip(pagina * tamanhoPagina)
@@ -75,7 +78,7 @@ namespace FrameShare.Application.Services
         {
             try
             {
-                var query = _context.Foto.AsQueryable().Where(f => f.EventId == idEvento && f.UserId == idusuario);
+                var query = _context.Foto.Include(x => x.Usuario).AsQueryable().Where(f => f.EventId == idEvento && f.UserId == idusuario);
 
                 if (missaoId.HasValue && missaoId > 0)
                     query = query.Where(f => f.MissionId == missaoId);
@@ -101,6 +104,7 @@ namespace FrameShare.Application.Services
             try
             {
                 return await _context.Foto
+                    .Include(x => x.Usuario)
                     .Where(f => f.EventId == idEvento)
                     .OrderByDescending(f => f.DataUpload)
                     .Skip(pagina * tamanhoPagina)
@@ -117,7 +121,7 @@ namespace FrameShare.Application.Services
         {
             try
             {
-                var query = _context.Foto.AsQueryable().Where(f => f.EventId == idEvento);
+                var query = _context.Foto.Include(x => x.Usuario).AsQueryable().Where(f => f.EventId == idEvento);
 
                 if (missaoId.HasValue && missaoId > 0)
                     query = query.Where(f => f.MissionId == missaoId);

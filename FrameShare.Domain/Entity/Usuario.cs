@@ -20,6 +20,8 @@ namespace FrameShare.Domain.Entity
         // Relacionamento com o Evento (Casamento, Aniversário, etc)
         public int EventoId { get; set; }
 
+        public ICollection<Foto> Fotos { get; set; }
+
         // Construtor vazio para o Entity Framework
         public Usuario() { }
 
