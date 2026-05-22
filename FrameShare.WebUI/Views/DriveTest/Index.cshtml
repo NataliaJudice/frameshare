@@ -392,56 +392,71 @@
     async function enviarUploadLivre(event) {
     event.preventDefault();
     const fileInput = document.getElementById('fileInput');
+
     if (!fileInput.files || fileInput.files.length === 0) return;
 
+    // 🌟 BUSCA O TOKEN DE SEGURANÇA QUE O .NET INJETOU NA PÁGINA
+    const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
     Swal.fire({
-    title: 'Processando foto...',
-    text: 'Otimizando o tamanho para o varal digital.',
+    title: 'Processando imagem...',
+    text: 'Otimizando o tamanho da foto para o varal digital.',
     allowOutsideClick: false,
-    didOpen: () => { Swal.showLoading(); }
+    didOpen: () => {
+    Swal.showLoading();
+    }
     });
 
     let arquivoParaEnviar = fileInput.files[0];
 
     try {
-    // Comprime a foto direto no celular
+    if (arquivoParaEnviar.type.startsWith("image/")) {
     arquivoParaEnviar = await imageCompression(arquivoParaEnviar, opcoesCompressao);
-    } catch (e) {
-    console.error("Erro na compressão nativa", e);
+    }
+    } catch (error) {
+    console.error("Erro ao otimizar imagem:", error);
+    }
+
+    if (Swal.isVisible()) {
+    Swal.update({
+    title: 'Enviando sua foto...',
+    text: 'Salvando momento no mural de memórias.'
+    });
     }
 
     const formData = new FormData();
-    // Forçamos o nome do arquivo a ser limpo e terminar em .jpg
-    formData.append("file", arquivoParaEnviar, "upload_android.jpg");
-
-    Swal.fire({
-    title: 'Enviando sua foto...',
-    text: 'Salvando momento no mural.',
-    allowOutsideClick: false,
-    didOpen: () => { Swal.showLoading(); }
-    });
+    formData.append("file", arquivoParaEnviar, "upload_mural.jpg");
 
     try {
     const response = await fetch('/DriveTest/Index', {
     method: 'POST',
-    body: formData
+    body: formData,
+    // 🌟 O SEGREDO ESTÁ AQUI: Passamos o token no cabeçalho da requisição para a Azure aceitar!
+    headers: {
+    "RequestVerificationToken": token
+    }
     });
 
     const data = await response.json();
-    if (!response.ok) throw new Error(data.mensagem || "Falha no upload.");
+
+    if (!response.ok) {
+    throw new Error(data.mensagem || "Ocorreu uma falha no upload.");
+    }
 
     Swal.fire({
     icon: 'success',
     title: 'Enviado! ✨',
     text: data.mensagem,
     confirmButtonColor: '#ec4899'
-    }).then(() => { location.reload(); });
+    }).then(() => {
+    location.reload();
+    });
 
     } catch (error) {
     Swal.fire({
     icon: 'error',
     title: 'Erro no Upload',
-    text: 'Ocorreu um problema ao processar a imagem. Tente tirar um print da foto e enviar!',
+    text: error.message,
     confirmButtonColor: '#8b5cf6'
     });
     }
