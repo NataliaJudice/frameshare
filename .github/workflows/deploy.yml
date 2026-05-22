@@ -18,9 +18,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Esse passo mágico converte o nome do repositório para minúsculas
+      - name: Converter nome do repositório para minúsculas
+        id: string
+        run: |
+          echo "repo_lowercase=${GITHUB_REPOSITORY,,}" >> $GITHUB_OUTPUT
+
+      # Agora usamos a variável convertida em minúsculas (steps.string.outputs.repo_lowercase)
       - name: Build e Push da Imagem
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}/minha-app:latest
+          tags: ghcr.io/${{ steps.string.outputs.repo_lowercase }}/minha-app:latest
