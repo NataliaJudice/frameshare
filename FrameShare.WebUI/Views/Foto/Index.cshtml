@@ -1,50 +1,72 @@
 ﻿@model FrameShare.WebUI.ViewModels.IndexViewModel
 
 @{
-    ViewData["Title"] = "Mural de Memórias";
+    ViewData["Title"] = "";
 }
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
     :root {
-    --primary: #ec4899;
-    --secondary: #8b5cf6;
-    --text-dark: #0f172a;
-    --text-muted: #64748b;
+    --primary: #d39e97; /* Rosa Antigo / Rosé Chic */
+    --primary-dark: #b87d75; /* Tom mais forte para hover/botões */
+    --accent: #c9a067; /* Ouro Envelhecido do panfleto */
+    --bg-main: #fbf8f7; /* Off-white Floral */
+    --text-dark: #4a3e3d; /* Marrom Acinzentado Escuro */
+    --text-muted: #8c7b79; /* Marrom Suave */
     --polaroid-bg: #ffffff;
-    --polaroid-shadow: 0 1px 3px rgba(15, 23, 42, 0.15), 0 10px 25px rgba(15, 23, 42, 0.14), 0 20px 35px rgba(15, 23, 42, 0.06);
+    --polaroid-shadow: 0 8px 20px rgba(74, 62, 61, 0.08);
+    --toolbar-shadow: 0 8px 25px rgba(211, 158, 151, 0.12);
     }
 
     body {
-    background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
+    background-color: var(--bg-main);
+    background-image: radial-gradient(#fcedec 1px, transparent 1px);
+    background-size: 20px 20px;
     min-height: 100vh;
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-dark);
     }
 
     .container-custom {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 15px;
+    padding: 30px 15px;
     }
 
+    /* HEADER ESTILO CASAMENTO */
+    .wedding-title {
+    font-family: 'Alex Brush', cursive;
+    font-size: 3.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 5px;
+    }
+
+    .wedding-subtitle {
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    }
+
+    /* TOOLBAR REESTILIZADA */
     .toolbar-container {
     display: flex;
     gap: 15px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
+    background: #ffffff;
     padding: 12px 20px;
-    border-radius: 25px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.05);
+    border-radius: 20px;
+    box-shadow: var(--toolbar-shadow);
     position: sticky;
     top: 15px;
     z-index: 1000;
-    margin-bottom: 30px;
-    border: 1px solid white;
+    margin-bottom: 40px;
+    border: 1px solid #f5e6e4;
     }
 
     .toolbar-item {
@@ -56,42 +78,45 @@
 
     .toolbar-item i {
     position: absolute;
-    left: 12px;
-    color: var(--primary);
+    left: 15px;
+    color: var(--accent);
     pointer-events: none;
     z-index: 5;
     }
 
     .custom-select {
     appearance: none;
-    background-color: #f8fafc;
-    border: 1px solid #f1f5f9;
-    border-radius: 15px;
-    padding: 10px 35px 10px 40px;
+    background-color: #faf6f5;
+    border: 1px solid #f2eae9;
+    border-radius: 12px;
+    padding: 12px 35px 12px 45px;
     font-size: 0.85rem;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--text-dark);
     width: 100%;
     cursor: pointer;
     transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     }
 
     .custom-select:focus {
     outline: none;
     background-color: white;
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.1);
+    box-shadow: 0 0 0 4px rgba(211, 158, 151, 0.15);
     }
 
     .toolbar-item::after {
     content: '▼';
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     position: absolute;
-    right: 15px;
+    right: 18px;
     color: var(--text-muted);
     pointer-events: none;
     }
 
+    /* GALERIA POLAROID */
     .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -103,38 +128,35 @@
     .photo-card.polaroid {
     position: relative;
     background: var(--polaroid-bg);
-    padding: 16px 16px 32px 16px;
-    border-radius: 4px;
+    padding: 14px 14px 28px 14px;
+    border-radius: 2px;
     box-shadow: var(--polaroid-shadow);
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15), box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(15, 23, 42, 0.07);
+    border: 1px solid #f2eae9;
     }
 
     .photo-card.polaroid:nth-child(even) {
-    transform: rotate(2.5deg);
+    transform: rotate(2deg);
     }
 
     .photo-card.polaroid:nth-child(odd) {
-    transform: rotate(-2.5deg);
+    transform: rotate(-2deg);
     }
 
     .photo-card.polaroid:hover {
-    transform: scale(1.05) rotate(0deg) translateY(-10px);
-    box-shadow: 0 30px 50px rgba(15, 23, 42, 0.18), 0 12px 20px rgba(15, 23, 42, 0.1);
+    transform: scale(1.04) rotate(0deg) translateY(-8px);
+    box-shadow: 0 25px 40px rgba(74, 62, 61, 0.15);
     z-index: 10;
-    border-color: rgba(15, 23, 42, 0.12);
     }
 
     .photo-wrapper {
-    border-radius: 0px;
     overflow: hidden;
     aspect-ratio: 1/1;
     position: relative;
-    border: 2px solid #e2e8f0;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-    background-color: #f8fafc;
+    border: 1px solid #f2eae9;
+    background-color: #faf6f5;
     }
 
     .photo-wrapper img {
@@ -160,17 +182,17 @@
 
     .btn-download-action {
     background: white;
-    color: var(--primary);
+    color: var(--primary-dark);
     width: 40px;
     height: 40px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border: 1px solid #f2eae9;
+    box-shadow: 0 4px 10px rgba(74, 62, 61, 0.1);
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s;
+    transition: transform 0.2s ease, background-color 0.2s, color 0.2s;
     }
 
     .btn-download-action:hover {
@@ -180,27 +202,56 @@
     }
 
     .polaroid-caption {
-    margin-top: 18px;
-    display: flex;
-    justify-content: space-between;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    letter-spacing: 0.5px;
+    }
+
+    /* BOTÃO CARREGAR MAIS */
+    .load-more-container {
+    text-align: center;
+    margin: 60px 0;
+    }
+
+    .btn-load-more {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    padding: 14px 45px;
+    border-radius: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 8px 20px rgba(211, 158, 151, 0.35);
+    display: inline-flex;
     align-items: center;
-    padding: 0 2px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: 900;
+    gap: 10px;
     }
 
-    .polaroid-tag {
-    font-size: 0.95rem;
-    color: #1e293b;
-    letter-spacing: -0.3px;
+    .btn-load-more:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(211, 158, 151, 0.45);
+    filter: brightness(1.02);
     }
 
-    .polaroid-id {
-    font-size: 0.75rem;
-    color: #94a3b8;
+    .btn-load-more:disabled {
+    background: #e5dbda;
+    color: #a69492;
+    cursor: not-allowed;
+    box-shadow: none;
     }
 
     @@media (max-width: 768px) {
+    .wedding-title {
+    font-size: 2.8rem;
+    }
+
     .toolbar-container {
     margin: 0 10px 25px;
     padding: 10px;
@@ -210,87 +261,46 @@
 
     .gallery-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 35px;
     padding: 20px 15px;
     }
 
     .photo-card.polaroid {
-    padding: 16px 16px 28px 16px;
-    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.15);
-    border: 1px solid rgba(15, 23, 42, 0.09);
+    padding: 14px 14px 24px 14px;
+    box-shadow: 0 12px 25px rgba(74, 62, 61, 0.12);
     }
 
     .photo-card.polaroid:nth-child(even) {
-    transform: rotate(1.5deg);
+    transform: rotate(1deg);
     }
 
     .photo-card.polaroid:nth-child(odd) {
-    transform: rotate(-1.5deg);
+    transform: rotate(-1deg);
     }
 
     .photo-overlay {
     opacity: 1;
     transform: translateY(0);
-    bottom: 8px;
-    right: 8px;
+    bottom: 10px;
+    right: 10px;
     }
 
     .btn-download-action {
-    width: 36px;
-    height: 36px;
-    background: rgba(255, 255, 255, 0.9);
+    width: 38px;
+    height: 38px;
     }
-
-    .polaroid-caption {
-    margin-top: 14px;
-    }
-
-    .polaroid-tag {
-    font-size: 0.95rem;
-    }
-
-    .polaroid-id {
-    display: none;
-    }
-    }
-
-    .load-more-container {
-    text-align: center;
-    margin: 50px 0;
-    }
-
-    .btn-load-more {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: white;
-    border: none;
-    padding: 14px 40px;
-    border-radius: 50px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 10px 20px -5px rgba(236, 72, 153, 0.4);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    }
-
-    .btn-load-more:disabled {
-    background: #e2e8f0;
-    color: #94a3b8;
-    cursor: not-allowed;
-    box-shadow: none;
     }
 </style>
 
-<div class="container py-4 container-custom">
-    <div class="text-center mb-4">
-        <h2 class="fw-bold">Mural de Memórias</h2>
-        <p class="text-muted">Explore momentos únicos do evento</p>
+<div class="container container-custom">
+    <div class="text-center mb-5">
+        <h2 class="wedding-title">Mural de Memórias</h2>
+        <div class="wedding-subtitle">Cada clique conta um pedaço da nossa história</div>
     </div>
 
     <div class="toolbar-container">
         <div class="toolbar-item">
-            <i data-lucide="arrow-up-down" size="18"></i>
+            <i data-lucide="sliders-horizontal" size="16"></i>
             <select id="ordemFotos" class="custom-select" onchange="resetarGaleria()">
                 <option value="desc">Mais Recentes</option>
                 <option value="asc">Mais Antigas</option>
@@ -308,12 +318,12 @@
                         <img src="@foto.UrlDrive" loading="lazy" alt="Momento do Evento" />
                         <div class="photo-overlay">
                             <button class="btn-download-action" onclick="downloadImagem('@foto.UrlDrive', 'FrameShare_@(foto.Id).jpg')" title="Baixar Foto">
-                                <i data-lucide="download" size="18"></i>
+                                <i data-lucide="download" size="16"></i>
                             </button>
                         </div>
                     </div>
                     <div class="polaroid-caption">
-                        <span class="polaroid-id">@foto.Usuario.NomeCompleto</span>
+                        <span>@foto.Usuario.NomeCompleto</span>
                     </div>
                 </div>
             }
@@ -322,7 +332,7 @@
 
     <div class="load-more-container">
         <button id="btnVerMais" class="btn-load-more" onclick="carregarMais()">
-            <i data-lucide="refresh-cw" id="iconLoad" size="18"></i>
+            <i data-lucide="heart" id="iconLoad" size="16"></i>
             <span id="textLoad">Ver Mais Momentos</span>
         </button>
     </div>
@@ -339,7 +349,7 @@
     grid.style.opacity = '0.5';
     grid.innerHTML = '';
     btn.disabled = false;
-    btn.innerHTML = '<i data-lucide="refresh-cw" size="18"></i> Ver Mais Momentos';
+    btn.innerHTML = '<i data-lucide="heart" size="16"></i> Ver Mais Momentos';
     await carregarMais(true);
     }
 
@@ -357,15 +367,14 @@
     const url = `/Foto/BuscarFotos?idEvento=${idEvento}&pagina=${paginaAtual}&ordem=${ordem}&missaoId=${missaoId}`;
     const response = await fetch(url);
 
-    // Intercepta e joga a exceção para o catch se a resposta for um BadRequest do C#
     if (!response.ok && response.status === 400) {
     const errorData = await response.json();
     throw new Error(errorData.erro || "Falha ao processar filtros da galeria pública.");
     }
 
     if (response.status === 204) {
-    if (isReset) grid.innerHTML = '<div class="col-12 text-center py-5 text-muted">Nenhuma foto encontrada.</div>';
-    btn.innerHTML = 'Fim do Mural ✨';
+    if (isReset) grid.innerHTML = '<div class="col-12 text-center py-5 text-muted small">Nenhum momento encontrado por enquanto.</div>';
+    btn.innerHTML = 'Fim do Varal de Memórias ✨';
     btn.disabled = true;
     grid.style.opacity = '1';
     return;
@@ -377,7 +386,7 @@
 
     paginaAtual++;
     btn.disabled = false;
-    btn.innerHTML = '<i data-lucide="refresh-cw" size="18"></i> Ver Mais Momentos';
+    btn.innerHTML = '<i data-lucide="heart" size="16"></i> Ver Mais Momentos';
     grid.style.opacity = '1';
     if (window.lucide) lucide.createIcons();
     } catch (error) {
@@ -388,7 +397,7 @@
     icon: 'error',
     title: 'Conexão interrompida',
     text: error.message,
-    confirmButtonColor: '#ec4899'
+    confirmButtonColor: '#d39e97'
     });
     }
     }
@@ -410,7 +419,7 @@
     icon: 'warning',
     title: 'Erro ao baixar',
     text: 'Não foi possível converter o arquivo automaticamente. Abrindo imagem em nova aba.',
-    confirmButtonColor: '#8b5cf6'
+    confirmButtonColor: '#b87d75'
     }).then(() => {
     window.open(url, '_blank');
     });

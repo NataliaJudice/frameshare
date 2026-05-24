@@ -1,7 +1,6 @@
 ﻿@{
     Layout = null; // Geralmente telas de login não usam a sidebar do layout principal
 }
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,31 +8,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - FrameShare</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-        --primary: #ec4899;
-        --secondary: #8b5cf6;
+        --primary: #d39e97; /* Rosa Antigo / Rosé Chic */
+        --primary-dark: #b87d75; /* Tom mais forte para botões e foco */
+        --accent: #c9a067; /* Ouro Envelhecido do panfleto */
+        --bg-main: #fbf8f7; /* Off-white Floral */
+        --text-dark: #4a3e3d; /* Marrom Acinzentado Escuro */
+        --text-muted: #8c7b79; /* Marrom Suave */
+        --card-shadow: 0 15px 35px rgba(211, 158, 151, 0.15);
         }
 
         body {
-        background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
-        font-family: 'Outfit', sans-serif;
+        background-color: var(--bg-main);
+        background-image: radial-gradient(#fcedec 1px, transparent 1px);
+        background-size: 20px 20px;
+        font-family: 'Montserrat', sans-serif;
         height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0;
+        color: var(--text-dark);
         }
 
         .login-card {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(15px);
-        border: 1px solid white;
-        border-radius: 30px;
+        background: #ffffff;
+        border: 1px solid #f5e6e4;
+        border-radius: 24px;
         padding: 40px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        box-shadow: var(--card-shadow);
         width: 100%;
         max-width: 400px;
         text-align: center;
@@ -42,62 +48,79 @@
         .brand-logo {
         width: 60px;
         height: 60px;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        border-radius: 18px;
+        background: #fcedec;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
-        margin: 0 auto 20px;
+        color: var(--primary-dark);
+        margin: 0 auto 15px;
+        border: 1px solid #f5e6e4;
         }
 
         .login-title {
-        font-weight: 800;
-        font-size: 1.8rem;
-        background: linear-gradient(to right, var(--primary), var(--secondary));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 10px;
+        font-family: 'Alex Brush', cursive;
+        font-size: 3.2rem;
+        color: var(--primary-dark);
+        margin-bottom: 2px;
+        }
+
+        .login-subtitle {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 700;
+        margin-bottom: 25px;
         }
 
         .form-control-custom {
-        background: rgba(255, 255, 255, 0.9);
-        border: 2px solid transparent;
-        border-radius: 15px;
+        background: #faf6f5;
+        border: 1px solid #f2eae9;
+        border-radius: 30px;
         padding: 12px 20px;
         font-weight: 600;
+        font-size: 0.9rem;
         text-align: center;
-        transition: 0.3s;
-        color: #1e293b;
+        transition: all 0.2s ease;
+        color: var(--text-dark);
         }
 
         .form-control-custom:focus {
         outline: none;
+        background-color: white;
         border-color: var(--primary);
-        box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.1);
+        box-shadow: 0 0 0 4px rgba(211, 158, 151, 0.15);
         }
 
         .btn-login {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         color: white;
         border: none;
-        border-radius: 15px;
+        border-radius: 30px;
         padding: 12px;
         width: 100%;
         font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85rem;
         margin-top: 20px;
-        transition: 0.3s;
+        transition: all 0.3s;
+        box-shadow: 0 6px 15px rgba(211, 158, 151, 0.3);
         }
 
         .btn-login:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+        box-shadow: 0 10px 20px rgba(211, 158, 151, 0.45);
+        filter: brightness(1.02);
         }
 
         .hint {
-        font-size: 0.85rem;
-        color: #64748b;
-        margin-top: 15px;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-top: 20px;
+        line-height: 1.4;
+        font-weight: 500;
         }
     </style>
 </head>
@@ -105,15 +128,15 @@
 
     <div class="login-card">
         <div class="brand-logo">
-            <i data-lucide="camera" size="32"></i>
+            <i data-lucide="heart" style="fill: var(--primary-dark); width: 24px; height: 24px;"></i>
         </div>
         <h2 class="login-title">Bem-vindo(a)</h2>
-        <p class="text-muted">Acesse o Mural de Memórias</p>
+        <div class="login-subtitle">Mural de Memórias</div>
 
         @if (TempData["Error"] != null)
         {
-            <div class="alert alert-danger border-0 small py-2" style="border-radius: 10px;">
-                @TempData["Error"]
+            <div class="alert alert-danger border-0 small py-2 mb-3" style="border-radius: 12px; background-color: #fee2e2; color: #ef4444; font-weight: 500;">
+                <i data-lucide="alert-circle" size="14" style="vertical-align: middle; margin-right: 4px;"></i> @TempData["Error"]
             </div>
         }
 
@@ -122,17 +145,17 @@
                 <input type="text"
                        name="loginDigitado"
                        class="form-control form-control-custom"
-                       placeholder="Ex: natalianovais"
+                       placeholder="Digite seu nome de acesso"
                        required
                        autocomplete="off">
             </div>
-            
+
             <button type="submit" class="btn-login">Acessar Evento</button>
         </form>
 
         <p class="hint">
-            <i data-lucide="info" size="14" style="vertical-align: middle"></i>
-            Digite seu primeiro e último nome juntos (sem espaços).
+            <i data-lucide="info" size="13" style="vertical-align: middle; color: var(--accent); margin-right: 2px;"></i>
+            Insira seu primeiro e último nome juntos (ex: lucianasilva).
         </p>
     </div>
 

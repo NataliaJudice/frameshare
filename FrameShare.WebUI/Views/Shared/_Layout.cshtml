@@ -6,176 +6,257 @@
     <title>@ViewData["Title"] - FrameShare</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
         :root {
-            --primary: #ec4899;
-            --secondary: #8b5cf6;
-            --sidebar-bg: rgba(255, 255, 255, 0.95);
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --sidebar-width: 280px;
-            --sidebar-closed-width: 88px;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        --primary: #d39e97; /* Rosa Antigo / Rosé Chic */
+        --primary-dark: #b87d75; /* Tom mais forte para estados ativos */
+        --accent: #c9a067; /* Ouro Envelhecido do panfleto */
+        --bg-main: #fbf8f7; /* Off-white Floral */
+        --sidebar-bg: rgba(255, 255, 255, 0.96);
+        --text-main: #4a3e3d; /* Marrom Acinzentado Escuro */
+        --text-muted: #8c7b79; /* Marrom Suave */
+        --sidebar-width: 280px;
+        --sidebar-closed-width: 88px;
+        --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
 
         body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
-            color: var(--text-main);
-            min-height: 100vh;
+        margin: 0;
+        font-family: 'Montserrat', sans-serif;
+        background-color: var(--bg-main);
+        background-image: radial-gradient(#fcedec 1px, transparent 1px);
+        background-size: 20px 20px;
+        color: var(--text-main);
+        min-height: 100vh;
         }
 
         .no-transition {
-            transition: none !important;
+        transition: none !important;
         }
 
         /* BOTÃO MOBILE */
         .mobile-toggle {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: white;
-            color: var(--primary);
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.15);
-            z-index: 2000;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            cursor: pointer;
+        display: none;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: white;
+        color: var(--primary-dark);
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 20px rgba(211, 158, 151, 0.2);
+        z-index: 2000;
+        border: 1px solid #f5e6e4;
+        cursor: pointer;
         }
 
         /* LAYOUT GERAL */
         .layout {
-            display: flex;
-            min-height: 100vh;
-            padding: 15px;
-            gap: 15px;
+        display: flex;
+        min-height: 100vh;
+        padding: 15px;
+        gap: 15px;
         }
 
-        /* SIDEBAR */
+        /* SIDEBAR ESTILO CASAMENTO */
         .sidebar {
-            width: var(--sidebar-closed-width);
-            background: var(--sidebar-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 30px 12px;
-            border-radius: 32px;
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition);
-            position: relative;
-            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.05);
-            border: 1px solid white;
-            z-index: 2100;
+        width: var(--sidebar-closed-width);
+        background: var(--sidebar-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 30px 12px;
+        border-radius: 24px;
+        display: flex;
+        flex-direction: column;
+        transition: var(--transition);
+        position: relative;
+        box-shadow: 0 10px 35px rgba(211, 158, 151, 0.12);
+        border: 1px solid #f5e6e4;
+        z-index: 2100;
         }
 
-        .sidebar.open-desktop { width: var(--sidebar-width); padding: 30px 18px; }
+        .sidebar.open-desktop {
+        width: var(--sidebar-width);
+        padding: 30px 18px;
+        }
 
         .sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 40px;
-            height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+        height: 48px;
         }
 
-        .sidebar.open-desktop .sidebar-header { justify-content: space-between; padding: 0 10px; }
+        .sidebar.open-desktop .sidebar-header {
+        justify-content: space-between;
+        padding: 0 10px;
+        }
 
         .brand-name {
-            font-weight: 800;
-            font-size: 1.3rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: none;
+        font-family: 'Alex Brush', cursive;
+        font-weight: 700;
+        font-size: 2.1rem;
+        color: var(--primary-dark);
+        display: none;
         }
 
-        .sidebar.open-desktop .brand-name { display: block; }
+        .sidebar.open-desktop .brand-name {
+        display: block;
+        }
 
         .hamburger-btn {
-            background: var(--sidebar-bg);
-            border: none;
-            color: var(--text-muted);
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+        background: #faf6f5;
+        border: 1px solid #f2eae9;
+        color: var(--text-muted);
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        }
+
+        .hamburger-btn:hover {
+        color: var(--primary-dark);
+        background-color: #fcedec;
         }
 
         /* MENU ITEMS */
-        .menu-list { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
-        
-        .menu-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 0;
-            margin-bottom: 8px;
-            border-radius: 18px;
-            text-decoration: none;
-            color: var(--text-muted);
-            transition: var(--transition);
+        .menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-grow: 1;
         }
 
-        .sidebar.open-desktop .menu-item { justify-content: flex-start; padding: 14px 18px; }
-        .menu-item svg { min-width: 24px; stroke-width: 2.5px; }
-        .sidebar.open-desktop .menu-item svg { margin-right: 15px; }
-        .menu-text { display: none; font-weight: 600; }
-        .sidebar.open-desktop .menu-text { display: block; }
+        .menu-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 0;
+        margin-bottom: 8px;
+        border-radius: 14px;
+        text-decoration: none;
+        color: var(--text-muted);
+        transition: var(--transition);
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        }
+
+        .sidebar.open-desktop .menu-item {
+        justify-content: flex-start;
+        padding: 14px 18px;
+        }
+
+        .menu-item svg {
+        min-width: 24px;
+        stroke-width: 2px;
+        }
+
+        .sidebar.open-desktop .menu-item svg {
+        margin-right: 15px;
+        }
+
+        .menu-text {
+        display: none;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        }
+
+        .sidebar.open-desktop .menu-text {
+        display: block;
+        }
 
         .menu-item:hover {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.1);
+        background: #fffbfb;
+        color: var(--primary-dark);
+        box-shadow: 0 4px 12px rgba(211, 158, 151, 0.1);
         }
 
-        /* ESTADO ATIVO (O ROSINHA) */
+        /* ESTADO ATIVO (SINTONIZADO COM O PANFLETO) */
         .menu-item.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
-            color: white !important;
-            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.25);
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark)) !important;
+        color: white !important;
+        box-shadow: 0 6px 18px rgba(211, 158, 151, 0.4);
         }
 
         /* CONTEÚDO PRINCIPAL */
         .main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(5px);
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
         }
 
-        .content-header { padding: 30px 40px 0; }
-        .content-header h1 { font-weight: 800; font-size: 1.8rem; letter-spacing: -1px; }
+        .content-header {
+        padding: 30px 40px 0;
+        }
+
+        .content-header h1 {
+        font-weight: 700;
+        font-size: 1.6rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--text-dark);
+        border-left: 3px solid var(--accent);
+        padding-left: 12px;
+        }
 
         @@media (max-width: 768px) {
-            .mobile-toggle { display: flex; }
-            .sidebar { position: fixed; top: 10px; bottom: 10px; left: -320px; width: 280px; }
-            .sidebar.mobile-open { left: 10px; }
-            .sidebar.mobile-open .brand-name, .sidebar.mobile-open .menu-text { display: block; }
-            .sidebar.mobile-open .menu-item { justify-content: flex-start; padding: 14px 18px; }
-            .sidebar.mobile-open .sidebar-header { justify-content: space-between; padding: 0 10px; }
-            .content-header { padding: 85px 20px 0; } 
+        .mobile-toggle {
+        display: flex;
+        }
+
+        .sidebar {
+        position: fixed;
+        top: 10px;
+        bottom: 10px;
+        left: -320px;
+        width: 280px;
+        border-radius: 20px;
+        }
+
+        .sidebar.mobile-open {
+        left: 10px;
+        }
+
+        .sidebar.mobile-open .brand-name, .sidebar.mobile-open .menu-text {
+        display: block;
+        }
+
+        .sidebar.mobile-open .menu-item {
+        justify-content: flex-start;
+        padding: 14px 18px;
+        }
+
+        .sidebar.mobile-open .sidebar-header {
+        justify-content: space-between;
+        padding: 0 10px;
+        }
+
+        .content-header {
+        padding: 85px 20px 0;
+        }
         }
     </style>
 </head>
 <body>
 
     @{
-        // Lógica para detectar página ativa
         var currentController = ViewContext.RouteData.Values["Controller"]?.ToString();
         var currentAction = ViewContext.RouteData.Values["Action"]?.ToString();
     }
@@ -187,35 +268,35 @@
     <div class="layout">
         <aside id="sidebar" class="sidebar">
             <div class="sidebar-header">
-                <span class="brand-name">FrameShare</span>
+                <span class="brand-name">Luciana & Wallace</span>
                 <button class="hamburger-btn" onclick="toggleSidebar()">
                     <i data-lucide="menu"></i>
                 </button>
             </div>
 
             <nav class="menu-list">
-                <a asp-controller="Home" asp-action="Index" 
+                <a asp-controller="Home" asp-action="Index"
                    class="menu-item @(currentController == "DriveTest" && currentAction == "Index" ? "active" : "")">
                     <i data-lucide="layout-grid"></i>
                     <span class="menu-text">Dashboard</span>
                 </a>
-              
+
                 <a asp-controller="Foto" asp-action="Index"
                    class="menu-item @(currentController == "Foto" && currentAction == "Index" ? "active" : "")">
                     <i data-lucide="globe"></i>
                     <span class="menu-text">Galeria Geral</span>
                 </a>
-                <a asp-controller="Foto" asp-action="GaleriaPessoal"
+                @* <a asp-controller="Foto" asp-action="GaleriaPessoal"
                    class="menu-item @(currentController == "Foto" && currentAction == "GaleriaPessoal" ? "active" : "")">
                     <i data-lucide="user"></i>
                     <span class="menu-text">Galeria Pessoal</span>
-                </a>
+                </a> *@
                 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
                 {
-                    <a asp-controller="DriveTest" asp-action="AdminIndex" 
+                    <a asp-controller="DriveTest" asp-action="AdminIndex"
                        class="menu-item @(currentController == "DriveTest" && currentAction == "AdminIndex" ? "active" : "")">
                         <i data-lucide="fingerprint"></i>
-                        <span class="menu-text">Painel Administrador</span>
+                        <span class="menu-text">Painel Admin</span>
                     </a>
                 }
             </nav>
@@ -244,38 +325,35 @@
         const sidebar = document.getElementById("sidebar");
         const trigger = document.getElementById("mobileTrigger");
 
-        // 1. Persistência: Carrega o estado ao iniciar
         document.addEventListener("DOMContentLoaded", () => {
-            const isOpened = localStorage.getItem("sidebar-open") === "true";
-            
-            if (window.innerWidth > 768 && isOpened) {
-                sidebar.classList.add("no-transition"); // Carrega sem "pulo" visual
-                sidebar.classList.add("open-desktop");
-                setTimeout(() => sidebar.classList.remove("no-transition"), 100);
-            }
+        const isOpened = localStorage.getItem("sidebar-open") === "true";
+
+        if (window.innerWidth > 768 && isOpened) {
+        sidebar.classList.add("no-transition");
+        sidebar.classList.add("open-desktop");
+        setTimeout(() => sidebar.classList.remove("no-transition"), 100);
+        }
         });
 
         function toggleSidebar() {
-            if (window.innerWidth <= 768) {
-                sidebar.classList.toggle("mobile-open");
-                trigger.style.display = sidebar.classList.contains("mobile-open") ? "none" : "flex";
-            } else {
-                sidebar.classList.toggle("open-desktop");
-                // 2. Persistência: Salva a escolha do usuário
-                const isOpen = sidebar.classList.contains("open-desktop");
-                localStorage.setItem("sidebar-open", isOpen);
-            }
+        if (window.innerWidth <= 768) {
+        sidebar.classList.toggle("mobile-open");
+        trigger.style.display = sidebar.classList.contains("mobile-open") ? "none" : "flex";
+        } else {
+        sidebar.classList.toggle("open-desktop");
+        const isOpen = sidebar.classList.contains("open-desktop");
+        localStorage.setItem("sidebar-open", isOpen);
+        }
         }
 
-        // Fechar ao clicar fora (Mobile)
         document.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768 && 
-                sidebar.classList.contains("mobile-open") && 
-                !sidebar.contains(e.target) && 
-                !trigger.contains(e.target)) {
-                sidebar.classList.remove("mobile-open");
-                trigger.style.display = "flex";
-            }
+        if (window.innerWidth <= 768 &&
+        sidebar.classList.contains("mobile-open") &&
+        !sidebar.contains(e.target) &&
+        !trigger.contains(e.target)) {
+        sidebar.classList.remove("mobile-open");
+        trigger.style.display = "flex";
+        }
         });
     </script>
     @await RenderSectionAsync("Scripts", required: false)

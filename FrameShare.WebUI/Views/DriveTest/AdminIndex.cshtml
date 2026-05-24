@@ -2,27 +2,31 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
     :root {
-    --primary: #ec4899;
-    --secondary: #8b5cf6;
-    --text-dark: #0f172a;
-    --text-muted: #64748b;
-    --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-border: rgba(255, 255, 255, 0.6);
+    --primary: #d39e97; /* Rosa Antigo / Rosé Chic */
+    --primary-dark: #b87d75; /* Tom mais forte para interações */
+    --accent: #c9a067; /* Ouro Envelhecido do panfleto */
+    --bg-main: #fbf8f7; /* Off-white Floral */
+    --text-dark: #4a3e3d; /* Marrom Acinzentado Escuro */
+    --text-muted: #8c7b79; /* Marrom Suave */
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --glass-border: #f5e6e4;
     --polaroid-bg: #ffffff;
-    --polaroid-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.1), 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 20px 30px -10px rgba(15, 23, 42, 0.05);
+    --polaroid-shadow: 0 8px 20px rgba(74, 62, 61, 0.08);
     }
 
     body {
-    background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
+    background-color: var(--bg-main);
+    background-image: radial-gradient(#fcedec 1px, transparent 1px);
+    background-size: 20px 20px;
     background-attachment: fixed;
     min-height: 100vh;
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: var(--text-dark);
     overflow-x: hidden;
     }
@@ -30,50 +34,47 @@
     .container-admin {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 10px 20px 40px 20px;
+    padding: 20px 20px 40px 20px;
     }
 
-    /* GLASSMORPHISM PREMIUM */
+    /* GLASSMORPHISM SUAVE DO CASAMENTO */
     .glass-effect {
     background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(211, 158, 151, 0.1);
     }
 
-    /* APP HEADER COMPACTO E FIXO SUTIL */
+    /* HEADER */
     .app-header {
     padding: 20px 0;
-    margin-bottom: 20px;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+    margin-bottom: 25px;
+    border-bottom: 1px dashed #f5e6e4;
     }
 
     .admin-title {
-    font-weight: 800;
-    font-size: 1.8rem;
-    letter-spacing: -0.8px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-family: 'Alex Brush', cursive;
+    font-size: 3.2rem;
+    color: var(--primary-dark);
     }
 
-    /* GRID DE BOTÕES DA BARRA SUPERIOR */
+    /* BOTÕES DA BARRA SUPERIOR */
     .header-actions {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     }
 
     .btn-create-user-trigger {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white !important;
     border: none;
-    padding: 10px 20px;
-    border-radius: 16px;
+    padding: 10px 22px;
+    border-radius: 30px;
     font-weight: 700;
-    font-size: 0.85rem;
-    box-shadow: 0 6px 20px -4px rgba(236, 72, 153, 0.35);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 15px rgba(211, 158, 151, 0.35);
     transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;
@@ -82,18 +83,20 @@
 
     .btn-create-user-trigger:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px -4px rgba(236, 72, 153, 0.45);
-    filter: brightness(1.05);
+    filter: brightness(0.98);
+    box-shadow: 0 8px 20px rgba(211, 158, 151, 0.45);
     }
 
     .btn-gallery-link {
     background: white;
     color: var(--text-dark) !important;
-    padding: 10px 20px;
-    border-radius: 16px;
+    padding: 10px 22px;
+    border-radius: 30px;
     font-weight: 700;
-    font-size: 0.85rem;
-    border: 1px solid rgba(15, 23, 42, 0.08);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid #f2eae9;
     transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;
@@ -102,26 +105,26 @@
     }
 
     .btn-gallery-link:hover {
-    background: #f8fafc;
+    background: #faf6f5;
     transform: translateY(-2px);
+    border-color: var(--primary);
     }
 
-    /* MINI CARDS DE STATUS EM LINHA */
+    /* CARDS DE STATUS EM LINHA */
     .stats-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    margin-bottom: 25px;
+    gap: 15px;
+    margin-bottom: 30px;
     }
 
     .stat-card-glass {
-    padding: 18px 20px;
+    padding: 20px;
     position: relative;
-    overflow: hidden;
     }
 
     .stat-card-glass .val {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 800;
     color: var(--text-dark);
     line-height: 1.1;
@@ -129,11 +132,11 @@
     }
 
     .stat-card-glass .lbl {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     display: block;
     }
 
@@ -141,7 +144,7 @@
     content: '';
     position: absolute;
     width: 4px;
-    height: 40px;
+    height: 35px;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
@@ -153,34 +156,33 @@
     }
 
     .stat-card-glass.missions::after {
-    background: var(--secondary);
+    background: var(--accent);
     }
 
-    /* CARD CONTENEDOR DO MURAL */
+    /* CARD DO MURAL */
     .main-mural-card {
-    padding: 24px;
-    border-radius: 28px;
+    padding: 25px;
+    border-radius: 24px;
     }
 
-    /* GRID DA GALERIA ADAPTADO PARA GERAR RETRATO ÚNICO NO MOBILE */
     .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 40px;
+    gap: 35px;
     padding: 15px 5px;
     }
 
-    /* DESIGN DE POLAROID PREMIUM ALTERNADA */
+    /* DESIGN DE POLAROID */
     .photo-card.polaroid {
     position: relative;
     background: var(--polaroid-bg);
-    padding: 16px 16px 36px 16px;
-    border-radius: 4px;
+    padding: 14px 14px 28px 14px;
+    border-radius: 2px;
     box-shadow: var(--polaroid-shadow);
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.2), box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(15, 23, 42, 0.06);
+    border: 1px solid #f2eae9;
     }
 
     .photo-card.polaroid:nth-child(even) {
@@ -192,8 +194,8 @@
     }
 
     .photo-card.polaroid:hover {
-    transform: scale(1.04) rotate(0deg) translateY(-8px);
-    box-shadow: 0 25px 45px rgba(15, 23, 42, 0.15);
+    transform: scale(1.04) rotate(0deg) translateY(-6px);
+    box-shadow: 0 20px 35px rgba(74, 62, 61, 0.15);
     z-index: 10;
     }
 
@@ -201,8 +203,8 @@
     overflow: hidden;
     aspect-ratio: 1/1;
     position: relative;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    background-color: #f8fafc;
+    border: 1px solid #f2eae9;
+    background-color: #faf6f5;
     }
 
     .photo-wrapper img {
@@ -212,27 +214,15 @@
     }
 
     .polaroid-caption {
-    margin-top: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: 900;
-    }
-
-    .polaroid-tag {
-    font-size: 0.9rem;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.85rem;
     color: var(--text-dark);
-    letter-spacing: -0.2px;
+    letter-spacing: 0.5px;
     }
 
-    .polaroid-id {
-    font-size: 0.75rem;
-    color: #94a3b8;
-    }
-
-    /* OVERLAY MODERAÇÃO RÁPIDA (LIXEIRA) */
+    /* BOTÃO DE EXCLUSÃO (LIXEIRA ADAPTADA) */
     .photo-overlay {
     position: absolute;
     bottom: 12px;
@@ -251,14 +241,14 @@
     .btn-delete-photo-action {
     background: #ffffff;
     color: #ef4444;
-    width: 42px;
-    height: 42px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(239, 68, 68, 0.15);
-    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.12);
+    border: 1px solid #fee2e2;
+    box-shadow: 0 4px 12px rgba(74, 62, 61, 0.12);
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s, color 0.2s;
     }
@@ -269,14 +259,14 @@
     color: white;
     }
 
-    /* INPUTS E DIÁLOGOS CUSTOMIZADOS */
+    /* INPUTS E FORMULÁRIOS */
     .custom-input {
-    background-color: #f8fafc;
-    border: 2px solid #e2e8f0;
-    border-radius: 16px;
+    background-color: #faf6f5;
+    border: 1px solid #f2eae9;
+    border-radius: 12px;
     padding: 14px 16px;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 500;
     color: var(--text-dark);
     transition: all 0.2s ease;
     }
@@ -284,22 +274,24 @@
     .custom-input:focus {
     background-color: white;
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.1);
+    box-shadow: 0 0 0 4px rgba(211, 158, 151, 0.15);
     outline: none;
     }
 
     .btn-submit-user {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
     border: none;
-    padding: 14px;
-    border-radius: 16px;
+    padding: 12px;
+    border-radius: 30px;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     width: 100%;
-    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.25);
+    box-shadow: 0 4px 15px rgba(211, 158, 151, 0.3);
     }
 
-    /* 📱 CASAMENTO DE INTERFACE MOBILE RESPONSIVA */
+    /* RESPONSIVIDADE MOBILE */
     @@media (max-width: 768px) {
     .container-admin {
     padding: 10px 15px 30px 15px;
@@ -309,7 +301,10 @@
     flex-direction: column;
     align-items: flex-start !important;
     gap: 16px;
-    padding-bottom: 10px;
+    }
+
+    .admin-title {
+    font-size: 2.6rem;
     }
 
     .header-actions {
@@ -323,8 +318,7 @@
     width: 100%;
     justify-content: center;
     padding: 12px 10px;
-    font-size: 0.8rem;
-    border-radius: 14px;
+    font-size: 0.75rem;
     }
 
     .stats-row {
@@ -334,18 +328,18 @@
 
     .stat-card-glass {
     padding: 14px 16px;
-    border-radius: 18px;
+    border-radius: 16px;
     }
 
     .stat-card-glass .val {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     }
 
     .main-mural-card {
     padding: 16px;
-    border-radius: 22px;
+    border-radius: 20px;
     }
-    /* Ajustado para 1 coluna cheia para dar destaque gigante na foto no celular */
+
     .gallery-grid {
     grid-template-columns: 1fr;
     gap: 35px;
@@ -353,42 +347,33 @@
     }
 
     .photo-card.polaroid {
-    padding: 14px 14px 28px 14px;
-    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12); /* Sombra estática otimizada */
+    padding: 14px 14px 24px 14px;
+    box-shadow: 0 10px 20px rgba(74, 62, 61, 0.1);
     }
 
     .photo-card.polaroid:nth-child(even) {
-    transform: rotate(1.2deg);
+    transform: rotate(1deg);
     }
 
     .photo-card.polaroid:nth-child(odd) {
-    transform: rotate(-1.2deg);
+    transform: rotate(-1deg);
     }
-    /* No mobile, removemos o hover e fixamos o botão visível de forma limpa */
+
     .photo-overlay {
     opacity: 1 !important;
     transform: translateY(0) !important;
-    bottom: 8px;
-    right: 8px;
+    bottom: 10px;
+    right: 10px;
     }
 
     .btn-delete-photo-action {
     width: 38px;
     height: 38px;
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     .polaroid-caption {
     margin-top: 12px;
-    }
-
-    .polaroid-tag {
-    font-size: 0.95rem;
-    }
-
-    .polaroid-id {
-    display: none;
     }
     }
 </style>
@@ -397,21 +382,21 @@
     <div class="app-header d-flex justify-content-between align-items-center flex-wrap">
         <div>
             <h1 class="admin-title mb-0">Painel Admin</h1>
-            <span class="text-muted small fw-bold">FrameShare Live Event</span>
+            <span class="text-muted small fw-bold" style="text-transform: uppercase; letter-spacing: 1px; color: var(--accent) !important;">FrameShare Live Event</span>
         </div>
         <div class="header-actions">
             <button type="button" class="btn-create-user-trigger" onclick="abrirModalUsuario()">
-                <i data-lucide="user-plus" size="16"></i> Novo Convidado
+                <i data-lucide="user-plus" size="15"></i> Novo Convidado
             </button>
             <a asp-controller="Foto" asp-action="Index" class="btn-gallery-link">
-                <i data-lucide="image" size="16"></i> Galeria
+                <i data-lucide="image" size="15"></i> Galeria
             </a>
         </div>
     </div>
 
     @if (TempData["Success"] != null)
     {
-        <div class="alert alert-success glass-effect border-0 mb-4 py-3 text-center" role="alert" style="color: #16a34a; border-radius: 16px;">
+        <div class="alert alert-success glass-effect border-0 mb-4 py-3 text-center" role="alert" style="color: #16a34a; border-radius: 14px;">
             <i data-lucide="check-circle" class="me-2" size="18"></i> @TempData["Success"]
         </div>
     }
@@ -428,11 +413,11 @@
     </div>
 
     <div class="main-mural-card glass-effect mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h5 class="fw-bold mb-0" style="font-size: 1.1rem; color: #1e293b;">
-                <i data-lucide="layers" class="me-1 text-pink" size="18" style="color: var(--primary);"></i> Enviadas recentemente
+        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2" style="border-color: #f5e6e4 !important;">
+            <h5 class="fw-bold mb-0" style="font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                <i data-lucide="heart" class="me-1" size="16" style="color: var(--primary); fill: var(--primary);"></i> Enviadas Recentemente
             </h5>
-            <span class="badge rounded-pill bg-white text-dark border px-3 py-2 fw-bold">@DateTime.Now.ToString("dd MMM")</span>
+            <span class="badge rounded-pill bg-white text-muted border px-3 py-2 fw-bold" style="font-size: 0.75rem;">@DateTime.Now.ToString("dd MMM")</span>
         </div>
 
         <div class="gallery-grid">
@@ -444,11 +429,11 @@
                         <div class="photo-wrapper">
                             <img src="@foto.UrlDrive" loading="lazy" alt="Foto do evento" />
                             <div class="photo-overlay">
-                               
+                             
                             </div>
                         </div>
                         <div class="polaroid-caption">
-                            <span class="polaroid-id">@foto.Usuario.NomeCompleto</span>
+                            <span>@foto.Usuario.NomeCompleto</span>
                         </div>
                     </div>
                 }
@@ -456,7 +441,7 @@
             else
             {
                 <div class="text-center py-5 w-100 text-muted small col-span-all">
-                    <i data-lucide="camera-off" class="d-block mx-auto mb-2 text-muted" size="32"></i>
+                    <i data-lucide="camera-off" class="d-block mx-auto mb-2" size="28" style="color: var(--primary);"></i>
                     Nenhuma foto enviada ainda.
                 </div>
             }
@@ -466,11 +451,11 @@
 
 <div class="modal fade" id="modalCriarUsuario" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered px-4">
-        <div class="modal-content glass-effect border-0" style="background: rgba(255, 255, 255, 0.98); border-radius: 28px;">
+        <div class="modal-content glass-effect border-0" style="background: #ffffff; border-radius: 24px;">
             <div class="modal-body p-4">
                 <div class="text-center mb-4">
-                    <div class="d-inline-block p-3 rounded-circle mb-2" style="background: #fdf2f8; color: var(--primary);">
-                        <i data-lucide="user-plus" size="26"></i>
+                    <div class="d-inline-block p-3 rounded-circle mb-2" style="background: #fcedec; color: var(--primary-dark);">
+                        <i data-lucide="user-plus" size="24"></i>
                     </div>
                     <h5 class="fw-bold mb-1">Cadastrar Convidado</h5>
                     <p class="text-muted small mb-0">A credencial de acesso (slug) será gerada automaticamente.</p>
@@ -478,16 +463,16 @@
 
                 <form id="formCriarUsuario" onsubmit="executarCadastroUsuario(event); return false;">
                     <div class="mb-4">
-                        <label class="form-label small fw-bold text-secondary ps-1">Nome Completo</label>
+                        <label class="form-label small fw-bold text-muted ps-1" style="text-transform: uppercase; font-size: 0.75rem;">Nome Completo</label>
                         <input type="text" id="txtNomeCompleto" class="form-control custom-input" placeholder="Ex: Natália Garcia" required autocomplete="off">
                     </div>
 
                     <div class="d-flex gap-2">
                         <button type="button" class="btn w-100 py-2.5 fw-bold" data-bs-dismiss="modal"
-                                style="border-radius: 14px; background: #f1f5f9; color: #64748b; border: none; font-size: 0.9rem;">
+                                style="border-radius: 30px; background: #faf6f5; color: var(--text-muted); border: 1px solid #f2eae9; font-size: 0.85rem; text-transform: uppercase;">
                             Cancelar
                         </button>
-                        <button type="submit" class="btn-submit-user w-100 py-2.5 fw-bold" style="font-size: 0.9rem;">
+                        <button type="submit" class="btn-submit-user w-100 py-2.5 fw-bold" style="font-size: 0.85rem;">
                             Gerar Acesso
                         </button>
                     </div>
@@ -499,21 +484,21 @@
 
 <div class="modal fade" id="modalConfirmarDeletar" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered px-4">
-        <div class="modal-content glass-effect border-0" style="background: rgba(255, 255, 255, 0.98); border-radius: 28px;">
+        <div class="modal-content glass-effect border-0" style="background: #ffffff; border-radius: 24px;">
             <div class="modal-body p-4 text-center">
-                <div class="bg-light d-inline-block p-3 rounded-circle mb-3" style="color: #ef4444; background-color: #fee2e2 !important;">
-                    <i data-lucide="alert-triangle" size="32"></i>
+                <div class="d-inline-block p-3 rounded-circle mb-3" style="color: #ef4444; background-color: #fee2e2;">
+                    <i data-lucide="alert-triangle" size="28"></i>
                 </div>
                 <h5 class="fw-bold mb-2">Remover Foto do Mural?</h5>
                 <p class="text-muted small mb-4">Esta imagem será apagada definitivamente do feed dos convidados.</p>
 
                 <div class="d-flex gap-2">
                     <button type="button" class="btn w-100 py-2.5 fw-bold" data-bs-dismiss="modal"
-                            style="border-radius: 14px; background: #f1f5f9; color: #64748b; border: none; font-size: 0.9rem;">
+                            style="border-radius: 30px; background: #faf6f5; color: var(--text-muted); border: 1px solid #f2eae9; font-size: 0.85rem; text-transform: uppercase;">
                         Voltar
                     </button>
                     <button type="button" id="btnConfirmarDeletar" class="btn w-100 py-2.5 fw-bold"
-                            style="border-radius: 14px; background: #ef4444; color: white; border: none; font-size: 0.9rem;">
+                            style="border-radius: 30px; background: #ef4444; color: white; border: none; font-size: 0.85rem; text-transform: uppercase;">
                         Remover
                     </button>
                 </div>
@@ -542,7 +527,7 @@
     modalUserInstance.show();
     }
 
-    async function executarCadastroUsuario(event) {
+    async function ejecutarCadastroUsuario(event) {
     if (event) {
     event.preventDefault();
     event.stopPropagation();
@@ -555,7 +540,7 @@
     icon: 'warning',
     title: 'Campo obrigatório',
     text: 'Por favor, digite o nome completo do convidado.',
-    confirmButtonColor: '#8b5cf6'
+    confirmButtonColor: '#d39e97'
     });
     return false;
     }
@@ -568,6 +553,7 @@
     title: 'Gerando credenciais...',
     text: 'Processando regras de formatação de slug.',
     allowOutsideClick: false,
+    confirmButtonColor: '#d39e97',
     didOpen: () => { Swal.showLoading(); }
     });
 
@@ -590,7 +576,7 @@
     icon: 'success',
     title: 'Acesso Liberado! 🎫',
     text: data.mensagem,
-    confirmButtonColor: '#ec4899'
+    confirmButtonColor: '#d39e97'
     }).then(() => {
     window.location.reload();
     });
@@ -600,7 +586,7 @@
     icon: 'error',
     title: 'Inconsistência de Regras',
     text: error.message,
-    confirmButtonColor: '#8b5cf6'
+    confirmButtonColor: '#b87d75'
     }).then(() => {
     if (modalUserInstance) {
     modalUserInstance.show();
