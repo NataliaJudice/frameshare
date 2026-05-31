@@ -1,4 +1,5 @@
-﻿using FrameShare.Application.Interfaces;
+﻿using CloudinaryDotNet.Actions;
+using FrameShare.Application.Interfaces;
 using FrameShare.Domain.Entity;
 using FrameShare.WebUI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +19,8 @@ public class DriveTestController : Controller
 
     private int UsuarioIdLogado =>
         int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+    private int UsuarioRoleLogado =>
+        int.Parse(User.FindFirst(ClaimTypes.Role)?.Value ?? "0");
 
     public DriveTestController(IUploadService uploadService, IFotoService fotoService, IMissaoService missaoService, IUsuarioService usuarioService)
     {
@@ -121,6 +124,13 @@ public class DriveTestController : Controller
     [HttpGet]
     public async Task<IActionResult> AdminIndex()
     {
+        var roleUsuario = User.FindFirst(ClaimTypes.Role)?.Value;
+
+        // Se NÃO for admin, exibe a página de não autorizado na hora
+        if (roleUsuario != "Admin")
+        {
+            return RedirectToAction("NaoAutorizado", "Foto");
+        }
         int eventoId = 1;
         var fotosTotal = await _fotoService.Buscar(eventoId);
         var fotos = await _fotoService.BuscarRecentes(eventoId, 10);

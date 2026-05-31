@@ -1,0 +1,139 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acesso Restrito</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+        --primary: #d39e97; /* Rosa Antigo / Rosé Chic */
+        --primary-dark: #b87d75; /* Tom mais forte para botões */
+        --accent: #c9a067; /* Ouro Envelhecido */
+        --bg-main: #fbf8f7; /* Off-white Floral */
+        --text-dark: #4a3e3d; /* Marrom Acinzentado Escuro */
+        --text-muted: #8c7b79; /* Marrom Suave */
+        }
+
+        body {
+        background-color: var(--bg-main);
+        background-image: radial-gradient(#fcedec 1px, transparent 1px);
+        background-size: 20px 20px;
+        margin: 0;
+        height: 100vh;
+        font-family: 'Montserrat', sans-serif;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        }
+
+        .error-container {
+        max-width: 500px;
+        width: 100%;
+        padding: 40px 30px;
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 15px 35px rgba(74, 62, 61, 0.08);
+        border: 1px solid #f5e6e4;
+        text-align: center;
+        }
+
+        .wedding-script {
+        font-family: 'Alex Brush', cursive;
+        font-size: 4rem;
+        color: var(--primary-dark);
+        line-height: 1;
+        margin-bottom: 10px;
+        }
+
+        .error-code {
+        font-size: 0.9rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 700;
+        margin-bottom: 25px;
+        }
+
+        .icon-wrapper {
+        color: var(--primary);
+        background: #faf6f5;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+        border: 1px solid #f2eae9;
+        }
+
+        .error-text {
+        font-size: 1rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 35px;
+        }
+
+        .btn-back {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        border: none;
+        padding: 14px 35px;
+        border-radius: 30px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 8px 20px rgba(211, 158, 151, 0.35);
+        transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(211, 158, 151, 0.45);
+        filter: brightness(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="error-container">
+        <div class="icon-wrapper">
+            <i data-lucide="lock" size="36"></i>
+        </div>
+
+        <h1 class="wedding-script">Acesso Restrito</h1>
+        <div class="error-code">Erro 403 • Não Autorizado</div>
+
+        <p class="error-text">
+            Ops! Parece que esta área do mural é exclusiva para os administradores do evento. Seu carinho é super importante, mas você não tem permissão para acessar esta página.
+        </p>
+
+        <a href="/DriveTest/Index" class="btn-back">
+            <i data-lucide="heart" size="16"></i>
+            Voltar para os Momentos
+        </a>
+    </div>
+
+    <script>
+        if (window.lucide) {
+        lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

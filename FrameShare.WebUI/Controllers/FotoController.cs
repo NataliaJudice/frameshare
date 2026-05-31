@@ -53,9 +53,20 @@ namespace FrameShare.WebUI.Controllers
                 return Redirect(url);
             }
         }
-
+        [HttpGet]
+        public async Task<IActionResult> NaoAutorizado()
+        {
+            return View();
+        }
         public async Task<IActionResult> Index()
         {
+            var roleUsuario = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            // Se NÃO for admin, exibe a página de não autorizado na hora
+            if (roleUsuario != "Admin")
+            {
+                return View("NaoAutorizado");
+            }
             try
             {
                 var fotosIniciais = await _fotoService.BuscarRecentes(1, 5, 0);
